@@ -25,6 +25,9 @@
       <textarea name="message" v-model="formData.message" id="message" placeholder="Votre message" required></textarea>
     </div>
 
+    <!-- Sujet du mail dynamique -->
+    <input type="hidden" name="_subject" :value="`Nouveau message de ${formData.name || 'un client'} via le site`" />
+
     <!-- Bouton Soumettre -->
     <button type="submit" class="submit-button">Envoyer</button>
 
@@ -34,7 +37,7 @@
 </template>
 
 <script setup>
-import {ref} from "vue";
+import { ref } from "vue";
 
 const formData = ref({
   name: "",
@@ -55,12 +58,13 @@ const submitForm = async () => {
         name: formData.value.name,
         email: formData.value.email,
         message: formData.value.message,
+        _subject: `Nouveau message de ${formData.value.name || "un client"} via le site`,
       }),
     });
 
     if (response.ok) {
       formStatus.value = "Votre message a été envoyé avec succès !";
-      formData.value = {name: "", email: "", message: ""}; // Réinitialise le formulaire
+      formData.value = { name: "", email: "", message: "" }; // Réinitialise le formulaire
     } else {
       throw new Error("Une erreur est survenue. Veuillez réessayer.");
     }
