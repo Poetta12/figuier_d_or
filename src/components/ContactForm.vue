@@ -66,6 +66,9 @@ textarea {
   padding: 0.75rem;
   border: 1px solid var(--color-indigo);
   border-radius: 8px;
+  font-family: 'Agbalumo', sans-serif; /* Utilise la police définie pour le site */
+  font-size: 1rem; /* Taille cohérente avec le design */
+  color: var(--color-black); /* Couleur du texte */
   box-shadow: inset 4px 4px 10px rgba(0, 0, 0, 0.1), inset -4px -4px 10px rgba(255, 255, 255, 0.6);
 }
 
@@ -85,7 +88,7 @@ textarea:focus {
   padding: 0.75rem 1.5rem;
   border: none;
   border-radius: 8px;
-  cursor: pointer;
+  font-family: 'Agbalumo', sans-serif; /* Police du site pour le bouton */
   transition: background 0.3s ease;
 }
 

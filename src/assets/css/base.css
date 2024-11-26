@@ -23,6 +23,7 @@ button:hover, a:hover {
     --color-bg-transp: rgba(244, 236, 188, 0.4);
     /*--img-bg-light: url("../img/christmas_candle.jpg") no-repeat center center fixed;*/
 
+    --color-button-DL: var(--color-indigo);
     --color-footer-pg-title: var(--color-bordeaux);
     --text-color: var(--color-black);
     --bg-color: var(--color-white);
@@ -40,6 +41,7 @@ button:hover, a:hover {
     --color-bg-transp: rgba(0, 0, 0, 0.2);
     /*--img-bg-dark: url("../img/many_candle_bg.jpg") no-repeat center center fixed;*/
 
+    --color-button-DL: var(--color-lightgold);
     --color-footer-pg-title: var(--color-lightgold);
     --text-color: var(--color-white);
     --bg-color: var(--color-black);

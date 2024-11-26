@@ -140,18 +140,16 @@
     <button type="submit" class="submit-button">Commander</button>
 
     <!-- Modal pour les bougies non disponibles -->
-    <div v-if="isModalVisible" class="modal">
-      <div class="modal-content">
-        <h3>Indisponible</h3>
-        <p>Ce type de bougie sera bientôt disponible !</p>
-        <button @click="closeModal" class="close-modal">Fermer</button>
-      </div>
-    </div>
+    <ModalUnavailable
+      :isVisible="isModalVisible"
+      @close="closeModal"
+    />
   </form>
 </template>
 
 <script setup>
 import { reactive, ref, onMounted } from "vue";
+import ModalUnavailable from "@/components/ModalUnavailable.vue";
 
 // Données pour les types de bougies et parfums
 const types = [
@@ -208,12 +206,9 @@ const toggleDropdown = (key) => {
 
 // Sélection d'un type de bougie
 const handleTypeSelection = (type) => {
-  console.log(`Type sélectionné : ${type}`); // Debug log
   if (!availableTypes.includes(type)) {
-    console.log("Type indisponible, ouverture de la modale."); // Debug log
     isModalVisible.value = true;
   } else {
-    console.log("Type disponible, sélection effectué."); // Debug log
     selectOption("type", type);
   }
 };
@@ -240,7 +235,6 @@ onMounted(() => {
   window.addEventListener("click", closeAllDropdowns);
 });
 
-
 // Soumission du formulaire
 const submitOrder = () => {
   console.log("Commande envoyée :", orderData);
@@ -250,6 +244,9 @@ const submitOrder = () => {
 
 <style scoped>
 /* Styles pour le formulaire */
+li{
+  list-style: none;
+}
 .order-form {
   max-width: 600px;
   margin: 2rem auto;
@@ -284,6 +281,9 @@ textarea {
   border: 1px solid var(--color-indigo);
   border-radius: 8px;
   box-shadow: inset 4px 4px 10px rgba(0, 0, 0, 0.1), inset -4px -4px 10px rgba(255, 255, 255, 0.6);
+  font-family: 'Agbalumo', sans-serif; /* Utilise la police définie pour le site */
+  font-size: 1rem; /* Taille cohérente avec le design */
+  color: var(--color-black); /* Couleur du texte */
 }
 
 textarea {
@@ -302,7 +302,6 @@ textarea:focus {
   padding: 0.75rem 1.5rem;
   border: none;
   border-radius: 8px;
-  cursor: pointer;
   transition: background 0.3s ease;
 }
 
@@ -318,7 +317,6 @@ textarea:focus {
   border-radius: 8px;
   padding: 0.75rem;
   background: white;
-  cursor: pointer;
 }
 
 .dropdown-header {
@@ -340,7 +338,6 @@ textarea:focus {
 .dropdown-item {
   padding: 0.75rem;
   color: var(--color-indigo);
-  cursor: pointer;
 }
 
 .dropdown-item:hover {

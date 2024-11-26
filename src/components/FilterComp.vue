@@ -42,7 +42,7 @@
         :max="50"
         @input="emitFilters"
       />
-      <span>{{ filters.priceRange }} €</span>
+      <span>{{ filters.priceRange }} CHF</span>
     </div>
   </div>
 </template>

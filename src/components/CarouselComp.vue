@@ -1,10 +1,24 @@
 <template>
   <div class="carousel" @mouseover="stopSlideShow" @mouseleave="startSlideShow">
-    <div class="carousel-track" :style="{ transform: `translateX(-${currentSlide * 100}%)` }">
-      <img v-for="(image, index) in images" :key="index" :src="image" :alt="'Produit ' + (index + 1)" />
+    <!-- Track contenant les images -->
+    <div
+      class="carousel-track"
+      :style="{ transform: `translateX(-${currentSlide * 100}%)`, width: `${images.length * 50}%` }"
+    >
+      <div
+        v-for="(image, index) in images"
+        :key="index"
+        class="carousel-item"
+      >
+        <img
+          class="carousel-image"
+          :src="image"
+          :alt="'Image ' + (index + 1)"
+        />
+      </div>
     </div>
 
-    <!-- Navigation par boutons -->
+    <!-- Boutons de navigation -->
     <button class="carousel-button prev" @click="prevSlide" aria-label="Slide précédent">
       &#10094;
     </button>
@@ -26,26 +40,28 @@
 </template>
 
 <script setup>
-import { ref, onMounted, onBeforeUnmount } from "vue";
+import { ref, onMounted, onBeforeUnmount, watch } from "vue";
 
-// Liste des images pour le carrousel
-const images = [
-  "/img/candle1.jpeg",
-  "/img/candle2.jpeg",
-  "/img/candle3.jpeg",
-];
+// Props pour les images
+const props = defineProps({
+  images: {
+    type: Array,
+    required: true,
+    validator: (value) => Array.isArray(value) && value.length > 0,
+  },
+});
 
-// État réactif pour gérer la slide active
+// État réactif pour la diapositive active
 const currentSlide = ref(0);
 let slideInterval = null;
 
 // Méthodes de navigation
 const nextSlide = () => {
-  currentSlide.value = (currentSlide.value + 1) % images.length;
+  currentSlide.value = (currentSlide.value + 1) % props.images.length;
 };
 
 const prevSlide = () => {
-  currentSlide.value = (currentSlide.value - 1 + images.length) % images.length;
+  currentSlide.value = (currentSlide.value - 1 + props.images.length) % props.images.length;
 };
 
 const goToSlide = (index) => {
@@ -71,72 +87,73 @@ onMounted(() => {
 onBeforeUnmount(() => {
   stopSlideShow();
 });
+
+// Réinitialise à la première diapositive si les images changent
+watch(() => props.images, () => {
+  currentSlide.value = 0;
+  stopSlideShow();
+  startSlideShow();
+});
 </script>
 
 <style scoped>
-/* Carrousel général */
-<<<<<<< HEAD
-button:hover, a:hover {
-  cursor: none;
-}
-
-=======
->>>>>>> a035d82bd60eec956ffa02b9261713ff7d8be08f
+/* Container principal du carousel */
 .carousel {
   position: relative;
   width: 100%;
-  max-height: 400px;
+  max-width: 300px; /* Taille du cadre */
+  aspect-ratio: 1 / 1; /* Carré par défaut */
   overflow: hidden;
-  margin: 1rem 0;
-  border-radius: 15px;
-  box-shadow: 0 8px 15px var(--color-darkgold);
-  background-color: var(--color-black);
+  margin: 1rem auto;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  background-color: var(--bg-color);
 }
 
-/* Track du carrousel */
+/* Track contenant les diapositives */
 .carousel-track {
   display: flex;
-  transition: transform 0.5s cubic-bezier(0.4, 0.0, 0.2, 1);
+  justify-content: flex-start;
+  align-content: center;
+  transition: transform 0.5s ease-in-out;
 }
 
-.carousel-track img {
+/* Éléments du carousel */
+.carousel-item {
   width: 100%;
-  height: auto;
-  object-fit: cover;
   flex-shrink: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Image */
+.carousel-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Assure que l'image s'adapte sans dépasser */
+  border-radius: 10px;
 }
 
 /* Boutons de navigation */
 .carousel-button {
+  width: 4rem;
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-<<<<<<< HEAD
-  background-color: var(--color-light-gold); /* Light gold */
-  border: none;
-  color: var(--color-indigo);
-=======
   background-color: var(--color-darkgold);
-  border: 2px solid var(--color-lightgold);
+  border: none;
   color: var(--color-lightgold);
->>>>>>> a035d82bd60eec956ffa02b9261713ff7d8be08f
-  padding: 0.5rem 1rem;
-  cursor: pointer;
-  z-index: 2;
+  padding: 0.5rem;
   font-size: 1.5rem;
+  z-index: 2;
   border-radius: 50%;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  transition: all 0.3s ease-in-out;
 }
 
 .carousel-button:hover {
-<<<<<<< HEAD
-  background-color: var(--color-dark-gold); /* Dark gold on hover */
-  color: var(--color-indigo);
-=======
   background-color: var(--color-lightgold);
-  color: var(--text-color);
->>>>>>> a035d82bd60eec956ffa02b9261713ff7d8be08f
+  color: var(--bg-color);
 }
 
 .carousel-button.prev {
@@ -162,31 +179,24 @@ button:hover, a:hover {
   height: 12px;
   border-radius: 50%;
   background-color: rgba(255, 255, 255, 0.5);
-  cursor: pointer;
   transition: all 0.3s ease-in-out;
 }
 
 .indicator.active {
-<<<<<<< HEAD
-  background-color: var(--color-light-gold); /* Active state with light gold */
-  transform: scale(1.2);
-}
-
-=======
   background-color: var(--color-lightgold);
   transform: scale(1.2);
 }
 
-/* Responsive (Mobile-First) */
+/* Responsive design */
 
->>>>>>> a035d82bd60eec956ffa02b9261713ff7d8be08f
 /* Desktop */
 @media (min-width: 768px) {
   .carousel {
-    max-height: 500px;
+    max-width: 400px; /* Augmente la taille du cadre sur desktop */
   }
 
   .carousel-button {
+    padding: 0.75rem;
     font-size: 2rem;
   }
 

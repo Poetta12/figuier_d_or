@@ -16,7 +16,7 @@
             <li><router-link to="/" class="nav-link" exact-active-class="active">Accueil</router-link></li>
             <li><router-link to="/catalogue" class="nav-link" exact-active-class="active">Catalogue</router-link></li>
             <li><router-link to="/about" class="nav-link" exact-active-class="active">À propos</router-link></li>
-            <li><a href="/blog">Contactez-nous</a></li>
+            <li><router-link to="/form" class="nav-link" exact-active-class="active">Formulaire</router-link></li>
           </ul>
         </div>
 

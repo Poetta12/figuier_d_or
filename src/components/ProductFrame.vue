@@ -3,11 +3,16 @@
     <!-- Galerie d'images -->
     <div class="image-container">
       <img
-        v-for="(img, index) in (Array.isArray(images) ? images : [images])"
-        :key="index"
+        v-if="Array.isArray(images) && images.length > 0"
         class="product-image"
-        :src="img"
-        :alt="`${name || 'Image du produit'} (${index + 1})`"
+        :src="images[0]"
+        :alt="`${name || 'Image du produit'} (1)`"
+      />
+      <img
+        v-else
+        class="product-image"
+        :src="images"
+        :alt="`${name || 'Image du produit'}`"
       />
     </div>
 
@@ -19,23 +24,53 @@
       <div class="product-meta">
         <p><strong>Catégorie :</strong> {{ category }}</p>
         <p><strong>Couleur :</strong> {{ color }}</p>
-        <p><strong>Prix :</strong> {{ price.toFixed(2) }} €</p>
-        <p v-if="Array.isArray(fragrances) && fragrances.length">
-          <strong>Parfums :</strong> {{ fragrances.join(", ") }}
-        </p>
+        <p><strong>Prix :</strong> {{ price.toFixed(2) }} CHF</p>
+
+        <!-- Dropdown pour les fragrances -->
+        <div v-if="Array.isArray(fragrances) && fragrances.length > 0" class="fragrances-dropdown">
+          <label for="fragrances-dropdown"><strong>Parfums :</strong></label>
+          <div id="fragrances-dropdown" class="dropdown">
+            <button class="dropdown-button" @click="toggleDropdown">
+              {{ selectedFragrance || "Sélectionner un parfum" }}
+            </button>
+            <ul v-if="isDropdownOpen" class="dropdown-menu">
+              <li
+                v-for="(fragrance, index) in fragrances"
+                :key="index"
+                class="dropdown-item"
+                @click="selectFragrance(fragrance)"
+              >
+                {{ fragrance }}
+              </li>
+            </ul>
+          </div>
+        </div>
       </div>
     </div>
 
-    <!-- Bouton d'action -->
-    <button class="product-button hoverable" @click="onActionClick">{{ buttonText }}</button>
+    <!-- Boutons d'actions -->
+    <div class="action-buttons">
+      <button
+        class="product-button hoverable"
+        @click="onActionClick"
+      >
+        {{ buttonText }}
+      </button>
+      <button
+        class="add-to-cart-button hoverable"
+        @click="addToCart"
+      >
+        Ajouter au panier
+      </button>
+    </div>
   </div>
 </template>
 
 <script setup>
-import { defineProps, defineEmits } from "vue";
+import { defineProps, defineEmits, ref } from "vue";
 
 // Props pour personnaliser le produit
-defineProps({
+const props = defineProps({
   images: { type: Array, required: true }, // Liste des images
   name: { type: String, required: true }, // Nom du produit
   description: { type: String, required: true }, // Description
@@ -46,11 +81,32 @@ defineProps({
   buttonText: { type: String, default: "Découvrir" } // Texte du bouton
 });
 
-// Événement d'action pour le bouton
-const emit = defineEmits(["actionClick"]);
+// Événements d'action pour les boutons
+const emit = defineEmits(["actionClick", "addToCart"]);
 
+// Fonction pour déclencher "Découvrir"
 const onActionClick = () => {
   emit("actionClick");
+};
+
+// Fonction pour ajouter au panier
+const addToCart = () => {
+  emit("addToCart", { name: props.name, price: props.price, selectedFragrance: selectedFragrance.value });
+};
+
+// État pour le dropdown
+const isDropdownOpen = ref(false);
+const selectedFragrance = ref(null);
+
+// Fonction pour basculer l'ouverture du dropdown
+const toggleDropdown = () => {
+  isDropdownOpen.value = !isDropdownOpen.value;
+};
+
+// Fonction pour sélectionner un parfum
+const selectFragrance = (fragrance) => {
+  selectedFragrance.value = fragrance;
+  isDropdownOpen.value = false; // Fermer le menu après sélection
 };
 </script>
 
@@ -102,7 +158,8 @@ const onActionClick = () => {
 
 /* Détails du produit */
 .product-details {
-  padding: 0 1rem;
+  width: 90%;
+  padding: 0;
   color: var(--text-color);
   text-align: left;
   padding-bottom: 10px;
@@ -116,13 +173,6 @@ const onActionClick = () => {
   color: var(--color-bordeaux);
 }
 
-/* Description */
-.product-description {
-  font-size: 1rem;
-  margin-bottom: 1rem;
-  color: #555;
-}
-
 /* Informations supplémentaires */
 .product-meta p {
   font-size: 0.9rem;
@@ -130,86 +180,91 @@ const onActionClick = () => {
   color: #777;
 }
 
-/* Bouton */
-.product-button {
+.fragrances-dropdown {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  margin: 0.5rem 0;
+  text-align: left;
+}
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-button {
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  transition: background-color 0.3s ease;
+  width: 100%;
+  text-align: left;
+}
+
+.dropdown-button:hover {
+  background-color: #f8f8f8;
+}
+
+.dropdown-menu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 0.5rem 0;
+  list-style: none;
+  z-index: 10;
+  min-width: 100%;
+}
+
+.dropdown-menu .dropdown-item {
+  padding: 0.5rem 1rem;
+  transition: background-color 0.3s ease;
+}
+
+.dropdown-menu .dropdown-item:hover {
+  background-color: #f0f0f0;
+}
+
+/* Boutons */
+.action-buttons {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 1rem;
+}
+
+.product-button,
+.add-to-cart-button {
   padding: 0.6rem 1.2rem;
   font-size: 1rem;
-  background: linear-gradient(145deg, #6b4fa7, #583b8c);
-  color: #fff;
   border: none;
   border-radius: 20px;
   box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.1), -4px -4px 10px rgba(255, 255, 255, 0.6);
   transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
 }
 
+.product-button {
+  background: linear-gradient(145deg, #6b4fa7, #583b8c);
+  color: #fff;
+}
+
 .product-button:hover {
   background: linear-gradient(145deg, #7d5eb6, #6b4fa7);
   transform: translateY(-2px);
-  box-shadow: 6px 6px 15px rgba(0, 0, 0, 0.15), -6px -6px 15px rgba(255, 255, 255, 0.8);
 }
 
-/* Styles supplémentaires pour tablettes et desktops */
-
-/* Tablettes (min-width: 768px) */
-@media (min-width: 768px) {
-  .product-frame {
-    padding: 2rem;
-    border-radius: 16px;
-  }
-
-  .image-container {
-    max-width: 260px;
-    height: 260px;
-    margin-bottom: 1.5rem;
-  }
-
-  .product-name {
-    font-size: 1.8rem;
-  }
-
-  .product-description {
-    font-size: 1.1rem;
-  }
-
-  .product-meta p {
-    font-size: 1rem;
-  }
-
-  .product-button {
-    font-size: 1.1rem;
-    padding: 0.8rem 1.5rem;
-    border-radius: 25px;
-  }
+.add-to-cart-button {
+  background: linear-gradient(145deg, #28a745, #218838);
+  color: #fff;
 }
 
-/* Desktop (min-width: 1024px) */
-@media (min-width: 1024px) {
-  .product-frame {
-    padding: 1rem;
-    border-radius: 20px;
-  }
-
-  .image-container {
-    max-width: 300px;
-    height: 300px;
-    margin-bottom: 2rem;
-  }
-
-  .product-name {
-    font-size: 2rem;
-  }
-
-  .product-description {
-    font-size: 1.2rem;
-  }
-
-  .product-meta p {
-    font-size: 1.1rem;
-  }
-
-  .product-button {
-    font-size: 1.2rem;
-    padding: 1rem 2rem;
-  }
+.add-to-cart-button:hover {
+  background: linear-gradient(145deg, #34ce57, #28a745);
+  transform: translateY(-2px);
 }
 </style>

@@ -74,7 +74,3 @@ Pour toute question ou retour concernant cette maquette, veuillez contacter l'é
 
 - **Email** : contact@poettatech.fr
 - **Téléphone** : +33 7 53 81 23 81
-
-# Licence
-Ce projet est protégé par une licence propriétaire. Tous droits réservés à Figuier d'or. Toute utilisation, reproduction ou distribution est strictement interdite sans autorisation préalable.
-

@@ -75,14 +75,14 @@ const updateCursor = (event) => {
 };
 
 // Activer/désactiver l'état de hover
-const handleHover = (event) => {
+const handleHover = () => {
   isHovering.value = true;
-  console.log("Hovering on:", event.target);
+  //console.log("Hovering on:", event.target);
 };
 
 const handleHoverOut = () => {
   isHovering.value = false;
-  console.log("Hover out");
+  //console.log("Hover out");
 };
 
 // Ajouter les écouteurs pour suivre les interactions

@@ -48,33 +48,38 @@ const selectForm = (formType) => {
 </script>
 
 <style scoped>
-/* Styles de la vue principale */
+/* Conteneur principal */
 .form-view {
   max-width: 900px;
   margin: 2rem auto;
-  padding: 1rem;
-  background: var(--color-bg-transp);
-  border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  padding: 2rem;
+  background: var(--bg-color);
+  border-radius: 15px;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
   color: var(--text-color);
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
+/* En-tête */
 .form-header {
   text-align: center;
   margin-bottom: 2rem;
 }
 
 .form-header h1 {
-  font-size: 2.5rem;
+  font-family: 'Tangerine', cursive;
+  font-size: 3rem;
   color: var(--color-bordeaux);
   margin-bottom: 1rem;
 }
 
 .form-header p {
+  font-family: 'Agbalumo', sans-serif;
   font-size: 1.2rem;
   color: var(--text-color);
 }
 
+/* Boutons de sélection */
 .form-selection {
   display: flex;
   justify-content: center;
@@ -83,13 +88,13 @@ const selectForm = (formType) => {
 }
 
 button {
-  padding: 0.7rem 1.5rem;
+  font-family: 'Agbalumo', sans-serif;
   font-size: 1.2rem;
+  padding: 0.7rem 2rem;
   border: 2px solid var(--color-indigo);
-  border-radius: 5px;
+  border-radius: 8px;
   background: var(--bg-color);
-  color: var(--color-indigo);
-  cursor: pointer;
+  color: var(--color-button-DL);
   transition: all 0.3s ease;
 }
 
@@ -100,8 +105,10 @@ button.active {
 
 button:hover {
   transform: scale(1.05);
+  box-shadow: 0 0 10px var(--color-lightgold);
 }
 
+/* Conteneur du formulaire */
 .form-container {
   margin-top: 2rem;
 }

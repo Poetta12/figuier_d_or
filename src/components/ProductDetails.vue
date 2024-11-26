@@ -4,18 +4,40 @@
     <div class="modal-content">
       <button class="close-button" @click="closeDetails">&times;</button>
       <div class="modal-body">
-        <!-- Affichage de l'image -->
-        <img
-          class="product-image"
-          :src="Array.isArray(product.images) ? product.images[0] : product.image || '/img/default-product.png'"
-          :alt="product.name || 'Produit sans nom'"
-        />
-        <!-- Détails du produit -->
+        <!-- Section gauche : Image/Galerie -->
+        <div class="product-gallery">
+          <CarouselComp v-if="hasMultipleImages" :images="product.images" />
+          <div class="image-frame" v-else>
+            <img
+              class="product-image"
+              :src="product.images?.[0] || product.image || '/img/default-product.png'"
+              :alt="product.name || 'Image du produit'"
+            />
+          </div>
+        </div>
+
+        <!-- Section droite : Détails -->
         <div class="product-details">
           <h2 class="product-name">{{ product.name }}</h2>
+          <p class="product-category" v-if="product.category">
+            <strong>Catégorie :</strong> {{ product.category }}
+          </p>
           <p class="product-description">{{ product.description }}</p>
-          <p class="product-price" v-if="product.price">Prix : {{ product.price.toFixed(2) }} €</p>
-          <button class="add-to-cart-button" @click="addToCart">Ajouter au panier</button>
+          <p class="product-price" v-if="product.price">
+            Prix : {{ product.price.toFixed(2) }} CHF
+          </p>
+          <strong>Parfums disponibles :</strong>
+          <ul class="product-meta" v-if="product.fragrances?.length">
+            <li v-for="(fragrance, index) in product.fragrances" :key="index">
+              {{ fragrance }}
+            </li>
+          </ul>
+          <p v-if="product.color">
+            <strong>Couleur :</strong> {{ product.color }}
+          </p>
+          <p v-if="product.quantity">
+            <strong>Quantité disponible :</strong> {{ product.quantity }}
+          </p>
         </div>
       </div>
     </div>
@@ -23,10 +45,11 @@
 </template>
 
 <script setup>
-import { defineProps, defineEmits } from "vue";
+import { defineProps, defineEmits, computed } from "vue";
+import CarouselComp from "@/components/CarouselComp.vue";
 
-// Propriétés reçues par le composant
-defineProps({
+// Props
+const props = defineProps({
   product: {
     type: Object,
     required: true,
@@ -37,25 +60,23 @@ defineProps({
   },
 });
 
-// Événements émis par le composant
-const emit = defineEmits(["close", "addToCart"]);
+// Events
+const emit = defineEmits(["close"]);
 
-// Ferme la fenêtre modale
+// Vérifie si le produit a plusieurs images
+const hasMultipleImages = computed(() =>
+  Array.isArray(props.product.images) && props.product.images.length > 1
+);
+
 const closeDetails = () => {
   emit("close");
-};
-
-// Ajoute le produit au panier
-const addToCart = () => {
-  emit("addToCart", product); // Passe 'product' comme argument de l'événement
 };
 </script>
 
 <style scoped>
-/* Mobile-first styles */
-
-/* Conteneur principal de la modale */
+/* Modal container */
 .product-details-modal {
+
   position: fixed;
   top: 0;
   left: 0;
@@ -67,7 +88,6 @@ const addToCart = () => {
   z-index: 1000;
 }
 
-/* Fond d'overlay */
 .modal-overlay {
   position: absolute;
   top: 0;
@@ -78,137 +98,109 @@ const addToCart = () => {
   z-index: 1;
 }
 
-/* Contenu de la modale */
+/* Modal content */
 .modal-content {
   position: relative;
+  display: flex;
+  flex-direction: column;
   background: var(--bg-color);
   color: var(--text-color);
-  padding: 1.5rem;
-  border-radius: 10px;
-  width: 90vw;
-  height: auto;
+  width:90vw;
   max-height: 90vh;
-  box-sizing: border-box;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  overflow-y: auto;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
   z-index: 2;
-  text-align: center;
-  overflow-y: auto; /* Permet un défilement vertical si le contenu dépasse */
+  padding: 1rem;
 }
 
-/* Bouton de fermeture */
+/* Close button */
 .close-button {
   position: absolute;
-  top: -15px;
-  right: -8px;
+  top: 10px;
+  right: 10px;
   background: none;
   border: none;
-  color: var(--text-color);
   font-size: 1.5rem;
+  color: var(--text-color);
 }
 
-/* Image du produit */
-.product-image {
+/* Product gallery */
+.product-gallery {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.image-frame {
   width: 100%;
   max-width: 300px;
-  height: auto;
-  margin-bottom: 1rem;
-  border-radius: 8px;
+  aspect-ratio: 1 / 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: var(--bg-color);
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-/* Nom du produit */
+.product-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Product details */
+.product-details {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
 .product-name {
-  font-size: 3rem;
-  margin-bottom: 0.5rem;
-}
-
-/* Description */
-.product-description {
-  font-size: 0.9rem;
-  margin-bottom: 1rem;
-}
-
-/* Prix */
-.product-price {
+  font-size: 1.5rem;
   font-weight: bold;
+  color: var(--color-bordeaux);
+}
+
+.product-category,
+.product-description,
+.product-price,
+.product-meta li {
   font-size: 1rem;
-  margin-bottom: 1.5rem;
 }
 
-/* Bouton "Ajouter au panier" */
-.add-to-cart-button {
-  padding: 0.5rem 1rem;
-  font-size: 0.9rem;
-  background-color: var(--color-indigo);
-  color: var(--text-color);
-  border: none;
-  border-radius: 20px;
-  transition: background-color 0.3s ease, transform 0.3s ease;
-}
-
-.add-to-cart-button:hover {
-  background-color: var(--color-lightgold);
-  transform: scale(1.05);
-}
-
-/* Responsive styles */
-
-/* Tablettes (min-width: 768px) */
+/* Desktop styles */
 @media (min-width: 768px) {
   .modal-content {
-    width: 80vw;
-    max-height: 80vh;
-    padding: 2rem;
-    overflow: hidden;
+    flex-direction: row;
+    width:1000px;
+    max-height: 90vh;
   }
 
-  .modal-body{
+  .modal-body {
     display: flex;
-    justify-content: space-between;
-    align-items: center;
   }
 
-  .product-details{
-    padding-left: 2rem;
+  .product-gallery {
+    flex: 1;
+    max-width: 40%;
   }
 
-  .product-name {
-    font-size: 4rem;
+  .image-frame {
+    max-width: 400px;
   }
 
-  .product-description {
-    font-size: 1rem;
-  }
-
-  .add-to-cart-button {
-    font-size: 1rem;
-    padding: 0.7rem 1.5rem;
-  }
-}
-
-/* Desktop (min-width: 1024px) */
-@media (min-width: 1024px) {
-  .modal-content {
-    width: 50vw;
-    max-height: 70vh;
-    padding: 2.5rem;
+  .product-details {
+    flex: 1;
+    padding: 1.5rem;
+    text-align: left;
   }
 
   .product-name {
-    font-size: 4rem;
-  }
-
-  .product-description {
-    font-size: 1.1rem;
-  }
-
-  .close-button {
-    right: -15px;
-  }
-
-  .add-to-cart-button {
-    font-size: 1.1rem;
-    padding: 0.8rem 2rem;
+    font-size: 2rem;
   }
 }
 </style>
-
