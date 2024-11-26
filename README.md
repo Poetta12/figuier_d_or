@@ -1,54 +1,42 @@
-# **Figuier D'Or - Maquette Test**
+# **Figuier D'Or - Bougies artisanales**
 
-Bienvenue sur la version de test de la maquette pour **Figuier D'Or**, une boutique spécialisée dans les bougies artisanales. Cette version a été créée pour donner au client un aperçu des fonctionnalités et du design général avant le développement final.
+Bienvenue sur le site officiel de **Figuier D'Or**, une boutique spécialisée dans les bougies artisanales. Ce site n'est plus une maquette mais une version complète prête pour le déploiement.
 
 ---
 
 ## **Fonctionnalités incluses**
 
-- **Page d'accueil élégante** :
-    - Carrousel présentant les produits phares avec des transitions fluides.
-    - Section "Découvrez nos collections" mettant en avant les catégories principales.
-- **Navigation fluide** :
-    - Liens clairs et réactifs vers les pages principales.
-- **Design personnalisé** :
-    - Palette de couleurs : noir, or, bordeaux, et indigo.
-    - Polices uniques : **Nexa Script** pour les titres et **Tan Tangkiewood** pour les textes.
+### **Page d'accueil élégante**
+- Carrousel présentant les produits phares avec des transitions fluides.
+- Section "Découvrez nos collections" mettant en avant les catégories principales.
+
+### **Navigation fluide**
+- Menu interactif pour accéder facilement aux différentes pages.
+- Design adapté aux appareils mobiles et desktop.
+
+### **Design personnalisé**
+- **Palette de couleurs** : noir, or, bordeaux, et indigo.
+- **Polices uniques** :
+    - **Nexa Script** pour les titres.
+    - **Tan Tangkiewood** pour les textes.
+
+### **Fonctionnalités supplémentaires**
+- Formulaire de contact entièrement fonctionnel.
+- Gestion des commandes personnalisées.
+- Visualisation des produits avec détails et galeries d'images interactives.
 
 ---
 
-## **Instructions pour tester la maquette**
+## **Instructions pour utiliser le site**
 
-### **Prérequis**
+### **Accéder au site**
+- Le site est disponible en ligne à l'adresse suivante : [www.figuierdor.com](https://www.figuierdor.com).
 
-- Node.js (version 16 ou supérieure) doit être installé sur votre machine.
-
-### **Étapes d'installation**
-
-1. Clonez le dépôt :
-   ```bash
-   git clone https://github.com/Poetta12/figuier_d_or_test.git
-
-2. Accédez au dossier du projet :
-   ```bash
-   cd figuir-dor-maquette
-
-3. Installez les dépendances :
-   ```bash
-   npm install
-
-4. Lancez le serveur de développement :
-   ```bash
-   npm run dev
-
-5. Ouvrez votre navigateur et accédez à l'URL suivante :
-   ```bash
-   http://localhost:5173
-
-## **Pages disponibles**
-
-- **Accueil** (`/`) : Présentation des produits et des collections.
-- **À propos** (`/about`) : Informations sur la boutique et son histoire.
+### **Explorer les fonctionnalités**
+- **Page d'accueil** : Découvrez les produits phares et les collections.
+- **À propos** : Apprenez-en plus sur l'histoire et la mission de Figuier D'Or.
+- **Catalogue** : Parcourez les bougies disponibles avec des filtres personnalisés.
+- **Contact** : Entrez en relation avec l'équipe ou passez une commande.
 
 ---
 
@@ -57,20 +45,35 @@ Bienvenue sur la version de test de la maquette pour **Figuier D'Or**, une bouti
 - **Framework** : Vue.js 3.
 - **Gestionnaire de dépendances** : npm.
 - **Styles** : CSS natif avec polices personnalisées.
+- **Caractéristiques techniques** :
+    - Mobile-first design.
+    - Chargement rapide et optimisé.
+    - Composants réutilisables.
+
+---
+
+## **Licence**
+
+Le contenu et le design de ce site sont la propriété exclusive de **Figuier D'Or**. Toute reproduction, copie ou distribution sans autorisation est strictement interdite.
+
+- **Titulaire** : Figuier D'Or SARL
+- **Numéro d'enregistrement : 83124567800015
+- **Adresse** : 10 Rue des Lumières, 75000 Paris, France
 
 ---
 
 ## **Prochaines étapes**
 
-- Intégration de fonctionnalités interactives (formulaire de personnalisation, programme de fidélité, etc.).
-- Optimisation pour les appareils mobiles.
-- Préparation pour le déploiement final.
+- Mise en place du programme de fidélité.
+- Intégration des moyens de paiement en ligne.
+- Optimisation SEO pour un meilleur référencement.
 
 ---
 
 ## **Contact**
 
-Pour toute question ou retour concernant cette maquette, veuillez contacter l'équipe de développement à l'adresse suivante :
+Pour toute question ou retour, veuillez contacter l'équipe de **Figuier D'Or** via les coordonnées ci-dessous :
 
-- **Email** : contact@poettatech.fr
-- **Téléphone** : +33 7 53 81 23 81
+- **Email** : contact@figuierdor.com
+- **Téléphone** : +41 79 624 77 53
+- **Adresse** : Chemin des Étoiles 12, 1226 Thônex, Genève, Suisse

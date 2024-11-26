@@ -1,18 +1,31 @@
 <template>
-  <form class="contact-form" @submit.prevent="submitForm">
+  <form
+    class="contact-form"
+    action="https://formspree.io/f/xnnqgjba"
+    method="POST"
+    @submit="submitForm"
+  >
     <h2 class="form-title">Contactez-nous</h2>
+
+    <!-- Champ Nom -->
     <div class="form-group">
       <label for="name">Nom</label>
-      <input v-model="formData.name" type="text" id="name" placeholder="Votre nom" required />
+      <input name="name" v-model="formData.name" type="text" id="name" placeholder="Votre nom" required />
     </div>
+
+    <!-- Champ Email -->
     <div class="form-group">
       <label for="email">Email</label>
-      <input v-model="formData.email" type="email" id="email" placeholder="Votre email" required />
+      <input name="email" v-model="formData.email" type="email" id="email" placeholder="Votre email" required />
     </div>
+
+    <!-- Champ Message -->
     <div class="form-group">
       <label for="message">Message</label>
-      <textarea v-model="formData.message" id="message" placeholder="Votre message" required></textarea>
+      <textarea name="message" v-model="formData.message" id="message" placeholder="Votre message" required></textarea>
     </div>
+
+    <!-- Bouton Soumettre -->
     <button type="submit" class="submit-button">Envoyer</button>
   </form>
 </template>
@@ -26,9 +39,9 @@ const formData = ref({
   message: "",
 });
 
-const submitForm = () => {
-  console.log("Formulaire envoyé avec : ", formData.value);
-  alert("Votre message a été envoyé avec succès !");
+const submitForm = (event) => {
+  console.log("Formulaire envoyé avec :", formData.value);
+  alert("Votre message est en cours d'envoi. Merci !");
 };
 </script>
 
@@ -66,9 +79,9 @@ textarea {
   padding: 0.75rem;
   border: 1px solid var(--color-indigo);
   border-radius: 8px;
-  font-family: 'Agbalumo', sans-serif; /* Utilise la police définie pour le site */
-  font-size: 1rem; /* Taille cohérente avec le design */
-  color: var(--color-black); /* Couleur du texte */
+  font-family: 'Agbalumo', sans-serif; /* Police du site */
+  font-size: 1rem;
+  color: var(--color-black);
   box-shadow: inset 4px 4px 10px rgba(0, 0, 0, 0.1), inset -4px -4px 10px rgba(255, 255, 255, 0.6);
 }
 
@@ -88,7 +101,7 @@ textarea:focus {
   padding: 0.75rem 1.5rem;
   border: none;
   border-radius: 8px;
-  font-family: 'Agbalumo', sans-serif; /* Police du site pour le bouton */
+  font-family: 'Agbalumo', sans-serif; /* Police du site */
   transition: background 0.3s ease;
 }
 
