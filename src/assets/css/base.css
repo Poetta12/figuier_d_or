@@ -1,0 +1,138 @@
+@import url('https://fonts.googleapis.com/css2?family=Tangerine:wght@400;700&family=Agbalumo:wght@400;700&display=swap');
+
+/* Mode par défaut : dark-mode */
+
+html, body {
+    cursor: none;
+}
+
+button:hover, a:hover {
+    cursor: none;
+}
+
+/* Mode par défaut : light-mode */
+:root {
+    --color-black: #333;
+    --color-white: #fffceb;
+    --color-lightgold: #ffcc00;
+    --color-darkgold: #d4a017;
+    --color-bordeaux: #850000;
+    --color-indigo: #6b4fa7;
+    --color-indigo-button: rgba(107, 79, 167, 0.8); /* Indigo avec transparence de 80 % */
+
+    --color-bg-transp: rgba(244, 236, 188, 0.4);
+    /*--img-bg-light: url("../img/christmas_candle.jpg") no-repeat center center fixed;*/
+
+    --color-footer-pg-title: var(--color-bordeaux);
+    --text-color: var(--color-black);
+    --bg-color: var(--color-white);
+}
+
+/* Light mode variables */
+[data-theme="dark"] {
+    --color-black: #333;
+    --color-white: #fffceb;
+    --color-lightgold: #f4b52b;
+    --color-darkgold: #bd6513;
+    --color-bordeaux: #d94f4f;
+    --color-indigo: #402978;
+    --color-indigo-button: rgba(64, 41, 120, 0.8); /* Indigo foncé avec transparence de 80 % */
+    --color-bg-transp: rgba(0, 0, 0, 0.2);
+    /*--img-bg-dark: url("../img/many_candle_bg.jpg") no-repeat center center fixed;*/
+
+    --color-footer-pg-title: var(--color-lightgold);
+    --text-color: var(--color-white);
+    --bg-color: var(--color-black);
+}
+/* Applique une transition fluide à tous les éléments */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+html, body {
+    font-family: 'Agbalumo', sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    min-height: 100%;
+}
+
+/* Fonts */
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Tangerine', cursive;
+}
+
+p, span, a, button, select {
+    font-family: 'Agbalumo', sans-serif;
+}
+
+/* Boutons et liens */
+button, a {
+    font-size: 1rem;
+    padding: 0.5rem 1rem;
+    color: var(--text-color);
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+button {
+    background-color: var(--color-indigo-button);
+}
+
+button:hover, a:hover {
+    transform: scale(1.05);
+    text-shadow: 1px 1px 10px var(--text-color);
+}
+
+/* Flamme en hover */
+button:hover ~ .holder .flame,
+a:hover ~ .holder .flame {
+    height: 85px;
+    width: 20000px;
+    transition: all 0.3s ease;
+}
+
+button:hover ~ .holder .flame:before,
+a:hover ~ .holder .flame:before {
+    box-shadow: 0 0 10px 0 rgba(247, 93, 0, 0.6), 0 -4px 3px 0 rgba(247, 128, 0, 0.8);
+}
+
+/* Désactiver le curseur flamme sur mobile */
+@media (max-width: 767px) {
+    html, body {
+        cursor: auto;
+        background-color: transparent;
+    }
+}
+
+/* Desktop */
+@media (min-width: 1024px) {
+    .wrapper {
+        max-width: 1200px;
+        margin: auto;
+    }
+
+    body {
+        background: var(--bg-color);
+        background-size: cover;
+    }
+
+    body[data-theme="dark"] {
+        background: var(--bg-color);
+        background-size: cover;
+    }
+
+    button, a {
+        font-size: 1.5rem;
+        padding: 0.8rem 2rem;
+        border-radius: 8px;
+    }
+
+    html, body {
+        font-family: 'Agbalumo', sans-serif;
+    }
+}
