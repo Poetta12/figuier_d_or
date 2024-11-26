@@ -15,6 +15,19 @@
       />
     </div>
 
+    <!-- Email -->
+    <div class="form-group">
+      <label for="email">Email</label>
+      <input
+        name="email"
+        v-model="orderData.email"
+        type="email"
+        id="email"
+        placeholder="Votre adresse email"
+        required
+      />
+    </div>
+
     <!-- Adresse -->
     <div class="form-group">
       <label for="address">Adresse complète</label>
@@ -258,6 +271,62 @@ onMounted(() => {
 
 // Soumission du formulaire
 const submitOrder = async () => {
+  // Validation des champs
+  if (!orderData.name.trim()) {
+    orderStatus.value = "Veuillez saisir votre nom et prénom.";
+    isSuccess.value = false;
+    return;
+  }
+
+  if (!orderData.email.trim() || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(orderData.email)) {
+    orderStatus.value = "Veuillez saisir une adresse email valide.";
+    isSuccess.value = false;
+    return;
+  }
+
+  if (!orderData.address.trim()) {
+    orderStatus.value = "Veuillez saisir votre adresse complète.";
+    isSuccess.value = false;
+    return;
+  }
+
+  if (!orderData.city.trim()) {
+    orderStatus.value = "Veuillez saisir votre ville.";
+    isSuccess.value = false;
+    return;
+  }
+
+  if (!orderData.postalCode.trim() || !/^\d{5}$/.test(orderData.postalCode)) {
+    orderStatus.value = "Le code postal doit contenir exactement 5 chiffres.";
+    isSuccess.value = false;
+    return;
+  }
+
+  if (!orderData.phone.trim() || !/^\d{10}$/.test(orderData.phone)) {
+    orderStatus.value = "Le numéro de téléphone doit contenir exactement 10 chiffres.";
+    isSuccess.value = false;
+    return;
+  }
+
+  if (!orderData.type.trim()) {
+    orderStatus.value = "Veuillez sélectionner un type de bougie.";
+    isSuccess.value = false;
+    return;
+  }
+
+  if (!orderData.fragrance.trim()) {
+    orderStatus.value = "Veuillez sélectionner un parfum.";
+    isSuccess.value = false;
+    return;
+  }
+
+  if (orderData.quantity < 1) {
+    orderStatus.value = "Veuillez indiquer une quantité valide (au moins 1).";
+    isSuccess.value = false;
+    return;
+  }
+
+  // Soumission si toutes les validations passent
   try {
     const response = await fetch("https://formspree.io/f/mvgowznd", {
       method: "POST",
@@ -266,6 +335,7 @@ const submitOrder = async () => {
       },
       body: JSON.stringify({
         name: orderData.name,
+        email: orderData.email,
         address: orderData.address,
         city: orderData.city,
         postalCode: orderData.postalCode,
@@ -291,6 +361,8 @@ const submitOrder = async () => {
     isSuccess.value = false;
   }
 };
+
+
 </script>
 
 <style scoped>

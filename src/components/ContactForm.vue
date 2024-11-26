@@ -48,6 +48,13 @@ const formData = ref({
 const formStatus = ref("");
 
 const submitForm = async () => {
+  // Vérification des champs
+  if (!formData.value.name.trim() || !formData.value.email.trim() || !formData.value.message.trim()) {
+    formStatus.value = "Veuillez remplir tous les champs avant d'envoyer le formulaire.";
+    return;
+  }
+
+  // Envoi du formulaire
   try {
     const response = await fetch("https://formspree.io/f/xnnqgjba", {
       method: "POST",
