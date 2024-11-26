@@ -149,6 +149,7 @@
     <!-- Sujet du mail dynamique -->
     <input type="hidden" name="_subject" :value="`Nouvelle commande de ${orderData.name || 'un client'} sur figuierdor.ch`" />
 
+
     <!-- Bouton -->
     <button type="submit" class="submit-button">Commander</button>
 
@@ -263,7 +264,19 @@ const submitOrder = async () => {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(orderData),
+      body: JSON.stringify({
+        name: orderData.name,
+        address: orderData.address,
+        city: orderData.city,
+        postalCode: orderData.postalCode,
+        phone: orderData.phone,
+        type: orderData.type,
+        fragrance: orderData.fragrance,
+        color: orderData.color,
+        quantity: orderData.quantity,
+        message: orderData.message,
+        _subject: `Nouvelle commande de ${orderData.name || "un client"} sur figuierdor.ch`,
+      }),
     });
 
     if (response.ok) {

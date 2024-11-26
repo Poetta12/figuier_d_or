@@ -58,7 +58,7 @@ const submitForm = async () => {
         name: formData.value.name,
         email: formData.value.email,
         message: formData.value.message,
-        _subject: `Nouveau message de ${formData.value.name || "un client"} via le figuierdor.ch`,
+        _subject: `Nouveau message de ${formData.value.name || "un client"} via le Figuierdor.ch`,
       }),
     });
 
