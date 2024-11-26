@@ -3,7 +3,7 @@
     class="contact-form"
     action="https://formspree.io/f/xnnqgjba"
     method="POST"
-    @submit="submitForm"
+    @submit.prevent="submitForm"
   >
     <h2 class="form-title">Contactez-nous</h2>
 
@@ -27,11 +27,14 @@
 
     <!-- Bouton Soumettre -->
     <button type="submit" class="submit-button">Envoyer</button>
+
+    <!-- Message de confirmation -->
+    <p v-if="formStatus" class="form-status">{{ formStatus }}</p>
   </form>
 </template>
 
 <script setup>
-import { ref } from "vue";
+import {ref} from "vue";
 
 const formData = ref({
   name: "",
@@ -39,9 +42,31 @@ const formData = ref({
   message: "",
 });
 
-const submitForm = (event) => {
-  console.log("Formulaire envoyé avec :", formData.value);
-  alert("Votre message est en cours d'envoi. Merci !");
+const formStatus = ref("");
+
+const submitForm = async () => {
+  try {
+    const response = await fetch("https://formspree.io/f/xnnqgjba", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        name: formData.value.name,
+        email: formData.value.email,
+        message: formData.value.message,
+      }),
+    });
+
+    if (response.ok) {
+      formStatus.value = "Votre message a été envoyé avec succès !";
+      formData.value = {name: "", email: "", message: ""}; // Réinitialise le formulaire
+    } else {
+      throw new Error("Une erreur est survenue. Veuillez réessayer.");
+    }
+  } catch (error) {
+    formStatus.value = error.message;
+  }
 };
 </script>
 
@@ -79,7 +104,7 @@ textarea {
   padding: 0.75rem;
   border: 1px solid var(--color-indigo);
   border-radius: 8px;
-  font-family: 'Agbalumo', sans-serif; /* Police du site */
+  font-family: 'Agbalumo', sans-serif;
   font-size: 1rem;
   color: var(--color-black);
   box-shadow: inset 4px 4px 10px rgba(0, 0, 0, 0.1), inset -4px -4px 10px rgba(255, 255, 255, 0.6);
@@ -101,11 +126,18 @@ textarea:focus {
   padding: 0.75rem 1.5rem;
   border: none;
   border-radius: 8px;
-  font-family: 'Agbalumo', sans-serif; /* Police du site */
+  font-family: 'Agbalumo', sans-serif;
   transition: background 0.3s ease;
 }
 
 .submit-button:hover {
   background: var(--color-lightgold);
+}
+
+.form-status {
+  margin-top: 1rem;
+  font-size: 1rem;
+  color: var(--color-indigo);
+  text-align: center;
 }
 </style>
