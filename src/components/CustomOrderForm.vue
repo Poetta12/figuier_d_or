@@ -146,6 +146,9 @@
       ></textarea>
     </div>
 
+    <!-- Sujet du mail dynamique -->
+    <input type="hidden" name="_subject" :value="`Nouvelle commande de ${orderData.name || 'un client'} sur figuierdor.ch`" />
+
     <!-- Bouton -->
     <button type="submit" class="submit-button">Commander</button>
 
