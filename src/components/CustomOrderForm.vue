@@ -1,11 +1,12 @@
 <template>
-  <form class="order-form" @submit.prevent="submitOrder">
+  <form class="order-form" @submit.prevent="submitOrder" action="https://formspree.io/f/mvgowznd" method="POST">
     <h2 class="form-title">Commande Personnalisée</h2>
 
     <!-- Nom -->
     <div class="form-group">
       <label for="name">Nom et prénom</label>
       <input
+        name="name"
         v-model="orderData.name"
         type="text"
         id="name"
@@ -18,6 +19,7 @@
     <div class="form-group">
       <label for="address">Adresse complète</label>
       <input
+        name="address"
         v-model="orderData.address"
         type="text"
         id="address"
@@ -31,6 +33,7 @@
       <div class="form-group-inline">
         <label for="city">Ville</label>
         <input
+          name="city"
           v-model="orderData.city"
           type="text"
           id="city"
@@ -41,6 +44,7 @@
       <div class="form-group-inline">
         <label for="postalCode">Code postal</label>
         <input
+          name="postalCode"
           v-model="orderData.postalCode"
           type="text"
           id="postalCode"
@@ -54,6 +58,7 @@
     <div class="form-group">
       <label for="phone">Téléphone</label>
       <input
+        name="phone"
         v-model="orderData.phone"
         type="text"
         id="phone"
@@ -80,6 +85,7 @@
           </li>
         </ul>
       </div>
+      <input type="hidden" name="type" :value="orderData.type" />
     </div>
 
     <!-- Parfum -->
@@ -100,12 +106,14 @@
           </li>
         </ul>
       </div>
+      <input type="hidden" name="fragrance" :value="orderData.fragrance" />
     </div>
 
     <!-- Quantité -->
     <div class="form-group">
       <label for="quantity">Quantité</label>
       <input
+        name="quantity"
         v-model.number="orderData.quantity"
         type="number"
         id="quantity"
@@ -119,6 +127,7 @@
     <div class="form-group">
       <label for="color">Couleur</label>
       <input
+        name="color"
         v-model="orderData.color"
         type="text"
         id="color"
@@ -130,6 +139,7 @@
     <div class="form-group">
       <label for="message">Message personnalisé (optionnel)</label>
       <textarea
+        name="message"
         v-model="orderData.message"
         id="message"
         placeholder="Votre message"
@@ -138,6 +148,11 @@
 
     <!-- Bouton -->
     <button type="submit" class="submit-button">Commander</button>
+
+    <!-- Message de confirmation -->
+    <p v-if="orderStatus" :class="{'success-message': isSuccess, 'error-message': !isSuccess}">
+      {{ orderStatus }}
+    </p>
 
     <!-- Modal pour les bougies non disponibles -->
     <ModalUnavailable
@@ -197,6 +212,8 @@ const isDropdownOpen = reactive({
 });
 
 const isModalVisible = ref(false);
+const orderStatus = ref("");
+const isSuccess = ref(false);
 
 const toggleDropdown = (key) => {
   Object.keys(isDropdownOpen).forEach((dropdown) => {
@@ -236,17 +253,32 @@ onMounted(() => {
 });
 
 // Soumission du formulaire
-const submitOrder = () => {
-  console.log("Commande envoyée :", orderData);
-  alert("Votre commande a été envoyée !");
+const submitOrder = async () => {
+  try {
+    const response = await fetch("https://formspree.io/f/mvgowznd", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(orderData),
+    });
+
+    if (response.ok) {
+      orderStatus.value = "Votre commande a été envoyée avec succès !";
+      isSuccess.value = true;
+      Object.keys(orderData).forEach((key) => (orderData[key] = key === "quantity" ? 1 : ""));
+    } else {
+      throw new Error("Une erreur est survenue lors de l'envoi de votre commande.");
+    }
+  } catch (error) {
+    orderStatus.value = error.message || "Une erreur inconnue est survenue.";
+    isSuccess.value = false;
+  }
 };
 </script>
 
 <style scoped>
-/* Styles pour le formulaire */
-li{
-  list-style: none;
-}
+/* Styles de base du formulaire */
 .order-form {
   max-width: 600px;
   margin: 2rem auto;
@@ -260,9 +292,10 @@ li{
   text-align: center;
   font-size: 2rem;
   margin-bottom: 1.5rem;
-  color: var(--color-bordeaux);
+  color: #7a0027; /* Couleur bordeaux */
 }
 
+/* Styles pour les champs de formulaire */
 .form-group {
   margin-bottom: 1.5rem;
 }
@@ -271,19 +304,19 @@ label {
   display: block;
   margin-bottom: 0.5rem;
   font-weight: bold;
-  color: var(--color-indigo);
+  color: #3b3f88; /* Couleur indigo */
 }
 
 input,
 textarea {
   width: 100%;
   padding: 0.75rem;
-  border: 1px solid var(--color-indigo);
+  border: 1px solid #3b3f88; /* Indigo */
   border-radius: 8px;
+  font-family: 'Arial', sans-serif;
+  font-size: 1rem;
+  color: #000; /* Noir */
   box-shadow: inset 4px 4px 10px rgba(0, 0, 0, 0.1), inset -4px -4px 10px rgba(255, 255, 255, 0.6);
-  font-family: 'Agbalumo', sans-serif; /* Utilise la police définie pour le site */
-  font-size: 1rem; /* Taille cohérente avec le design */
-  color: var(--color-black); /* Couleur du texte */
 }
 
 textarea {
@@ -292,35 +325,40 @@ textarea {
 
 input:focus,
 textarea:focus {
-  border-color: var(--color-lightgold);
+  border-color: #f1b24a; /* Light Gold */
   outline: none;
 }
 
+/* Bouton de soumission */
 .submit-button {
-  background: var(--color-indigo);
+  background: #3b3f88; /* Indigo */
   color: #fff;
   padding: 0.75rem 1.5rem;
   border: none;
   border-radius: 8px;
+  font-family: 'Arial', sans-serif;
+  font-size: 1rem;
   transition: background 0.3s ease;
+  cursor: pointer;
 }
 
 .submit-button:hover {
-  background: var(--color-lightgold);
+  background: #f1b24a; /* Light Gold */
 }
 
-/* Styles pour les dropdowns */
+/* Dropdowns */
 .dropdown {
   position: relative;
   width: 100%;
-  border: 1px solid var(--color-indigo);
+  border: 1px solid #3b3f88; /* Indigo */
   border-radius: 8px;
   padding: 0.75rem;
   background: white;
+  cursor: pointer;
 }
 
 .dropdown-header {
-  color: var(--color-indigo);
+  color: #3b3f88; /* Indigo */
 }
 
 .dropdown-list {
@@ -329,7 +367,7 @@ textarea:focus {
   left: 0;
   right: 0;
   background: white;
-  border: 1px solid var(--color-indigo);
+  border: 1px solid #3b3f88;
   border-radius: 8px;
   margin-top: 0.5rem;
   z-index: 10;
@@ -337,14 +375,16 @@ textarea:focus {
 
 .dropdown-item {
   padding: 0.75rem;
-  color: var(--color-indigo);
+  color: #3b3f88;
+  cursor: pointer;
 }
 
 .dropdown-item:hover {
-  background: var(--color-lightgold);
+  background: #f1b24a; /* Light Gold */
   color: white;
 }
 
+/* Inline form layout */
 .form-inline {
   display: flex;
   gap: 1rem;
@@ -352,5 +392,23 @@ textarea:focus {
 
 .form-group-inline {
   flex: 1;
+}
+
+/* Messages de confirmation ou d'erreur */
+.success-message {
+  color: green;
+  text-align: center;
+  margin-top: 1rem;
+}
+
+.error-message {
+  color: red;
+  text-align: center;
+  margin-top: 1rem;
+}
+
+/* Liste sans puce */
+li {
+  list-style: none;
 }
 </style>
