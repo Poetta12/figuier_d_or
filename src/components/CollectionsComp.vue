@@ -183,14 +183,15 @@ onMounted(loadCollections);
 
 /* Bouton désactivé */
 .disabled-button {
-  background-color: #d3d3d3; /* Gris clair */
-  color: var(--color-bordeaux); /* Gris foncé */
+  background-color: #d3d3d3;
+  color: #a9a9a9;
+
   cursor: not-allowed;
 }
 
 .disabled-button:hover {
   background-color: #d3d3d3;
-  color: #a9a9a9;
+  color: var(--color-bordeaux);
   transform: none;
 }
 
