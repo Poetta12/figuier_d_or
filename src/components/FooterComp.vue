@@ -41,7 +41,7 @@
             </li>
             <li>
               <i class="fas fa-envelope"></i>
-              <a href="mailto:contact@figuierdor.ch" class="contact-link">contact@figuierdor.com</a>
+              <a href="mailto:contact@figuierdor.ch" target="_blank" class="contact-link">contact@figuierdor.ch</a>
             </li>
             <li>
               <i class="fas fa-map-marker-alt"></i>
