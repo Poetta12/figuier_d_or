@@ -74,14 +74,22 @@ const activeFilters = ref({
 // Produits filtrés
 const filteredProducts = computed(() => {
   return products.value.filter((product) => {
-    const matchesSearch = activeFilters.value.search === "" || product.name.toLowerCase().includes(activeFilters.value.search.toLowerCase());
-    const matchesCategory = activeFilters.value.category === "" || product.category === activeFilters.value.category;
-    const matchesColor = activeFilters.value.color === "" || product.color === activeFilters.value.color;
-    const matchesPrice = product.price <= activeFilters.value.priceRange;
+    const matchesSearch =
+      activeFilters.value.search === "" ||
+      product.name.toLowerCase().includes(activeFilters.value.search.toLowerCase());
+    const matchesCategory =
+      activeFilters.value.category === "" ||
+      product.category === activeFilters.value.category;
+    const matchesColor =
+      activeFilters.value.color === "" ||
+      product.color === activeFilters.value.color;
+    const matchesPrice =
+      product.price <= activeFilters.value.priceRange;
 
     return matchesSearch && matchesCategory && matchesColor && matchesPrice;
   });
 });
+
 
 // Pagination calculée
 const totalPages = computed(() => Math.ceil(filteredProducts.value.length / itemsPerPage));

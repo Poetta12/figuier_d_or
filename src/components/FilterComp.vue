@@ -14,7 +14,7 @@
         <h4>Catégorie</h4>
         <select v-model="filters.category" @change="emitFilters">
           <option value="">Toutes les catégories</option>
-          <option v-for="category in categories" :key="category" :value="category">
+          <option v-for="category in dynamicCategories" :key="category" :value="category">
             {{ category }}
           </option>
         </select>
@@ -25,7 +25,7 @@
         <h4>Couleur</h4>
         <select v-model="filters.color" @change="emitFilters">
           <option value="">Toutes les couleurs</option>
-          <option v-for="color in colors" :key="color" :value="color">
+          <option v-for="color in dynamicColors" :key="color" :value="color">
             {{ color }}
           </option>
         </select>
@@ -39,7 +39,7 @@
         type="range"
         v-model="filters.priceRange"
         :min="0"
-        :max="50"
+        :max="maxPrice"
         @input="emitFilters"
       />
       <span>{{ filters.priceRange }} CHF</span>
@@ -48,26 +48,44 @@
 </template>
 
 <script setup>
-import { ref, defineEmits } from "vue";
+import { ref, computed, onMounted } from "vue";
 
-// Définir l'événement "filter-change"
 const emit = defineEmits(["filter-change"]);
-
-const categories = ["Bougies moulées", "Bougies parfumées"];
-const colors = ["Blanc", "Rouge", "Vert", "Bleu", "Noir"];
 
 const filters = ref({
   search: "",
   category: "",
   color: "",
-  priceRange: 50,
+  priceRange: 100,
 });
+
+const products = ref([]);
+const dynamicCategories = computed(() =>
+  [...new Set(products.value.map((product) => product.category))]
+);
+const dynamicColors = computed(() =>
+  [...new Set(products.value.map((product) => product.color))]
+);
+const maxPrice = computed(() =>
+  Math.max(...products.value.map((product) => product.price), 50)
+);
+
+// Charger les produits depuis le JSON
+const loadProducts = async () => {
+  try {
+    const response = await import("/database/bougies.json");
+    products.value = response.default; // Charger les données
+  } catch (error) {
+    console.error("Erreur lors du chargement des produits :", error);
+  }
+};
 
 const emitFilters = () => {
   emit("filter-change", { ...filters.value });
 };
-</script>
 
+onMounted(loadProducts);
+</script>
 
 <style scoped>
 h4{

@@ -146,7 +146,7 @@ onBeforeUnmount(() => {
     height: 80px;
     transform: translate(-50%, -50%);
     pointer-events: none;
-    z-index: 9999;
+    z-index: 9999999999999;
   }
 
   select:hover + .holder,

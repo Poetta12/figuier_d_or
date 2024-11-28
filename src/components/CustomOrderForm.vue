@@ -427,7 +427,6 @@ textarea:focus {
   font-family: 'Arial', sans-serif;
   font-size: 1rem;
   transition: background 0.3s ease;
-  cursor: pointer;
 }
 
 .submit-button:hover {
@@ -442,7 +441,6 @@ textarea:focus {
   border-radius: 8px;
   padding: 0.75rem;
   background: white;
-  cursor: pointer;
 }
 
 .dropdown-header {
@@ -464,7 +462,6 @@ textarea:focus {
 .dropdown-item {
   padding: 0.75rem;
   color: #3b3f88;
-  cursor: pointer;
 }
 
 .dropdown-item:hover {
