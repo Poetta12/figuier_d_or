@@ -68,7 +68,7 @@ const activeFilters = ref({
   search: "",
   category: "",
   color: "",
-  priceRange: 100,
+  priceRange: 50,
 });
 
 // Produits filtrés
