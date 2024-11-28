@@ -1,78 +1,57 @@
 <template>
   <section class="collections">
     <h2 class="section-title">Découvrez nos collections</h2>
-    <div class="collection-list">
-      <div class="collection-item" v-for="collection in collections" :key="collection.id">
-        <div
-          class="collection-image"
-          :style="{ backgroundImage: `url(${collection.image})` }"
-        ></div>
-        <div class="collection-content">
-          <h3 class="collection-title">{{ collection.title }}</h3>
-          <p class="collection-description">{{ collection.description }}</p>
+    <div class="collection-groups">
+      <div class="collection-block" v-for="(group, groupIndex) in groupedCollections" :key="groupIndex">
+        <div class="collection-list">
+          <div class="collection-item" v-for="collection in group" :key="collection.id">
+            <div
+              class="collection-image"
+              :style="{ backgroundImage: `url(${collection.image})` }"
+            ></div>
+            <div class="collection-content">
+              <h3 class="collection-title">{{ collection.name }}</h3>
+              <p class="collection-description">{{ collection.description }}</p>
+            </div>
+            <button class="explore-button hoverable">Explorer la boutique</button>
+          </div>
         </div>
-        <button class="explore-button hoverable">Explorer la boutique</button>
-
       </div>
     </div>
   </section>
 </template>
 
 <script setup>
-const collections = [
-  {
-    id: 1,
-    title: "Bougies Sculptées",
-    description: "De véritables œuvres d'art faites à la main.",
-    image: "/img/moule-bougie-originale.webp",
-  },
-  {
-    id: 2,
-    title: "Bougies Aromathérapie",
-    description: "Des fragrances apaisantes pour votre bien-être.",
-    image: "/img/bougie-parfumée.png",
-  },
-  {
-    id: 3,
-    title: "Bougies Fondantes",
-    description: "Des parfums pour chaque humeur.",
-    image: "/img/bougie-fondant.webp",
-  },
-  {
-    id: 4,
-    title: "Bougies de Massage",
-    description: "Relaxez-vous avec style.",
-    image: "/img/Massage-bougie.jpeg",
-  },
-  {
-    id: 5,
-    title: "Bougies LED",
-    description: "Éclat durable sans flamme pour une sécurité optimale.",
-    image: "/img/Bougie-led.webp",
-  },
-  {
-    id: 6,
-    title: "Bougies pour Enfants",
-    description: "Des designs amusants et colorés pour les plus jeunes.",
-    image: "/img/enfant.webp",
-  },
-  {
-    id: 7,
-    title: "Bougies Festives",
-    description: "Ajoutez une touche spéciale à vos célébrations.",
-    image: "/img/bougies-noel.jpg",
-  },
-  {
-    id: 8,
-    title: "Bougies de Méditation",
-    description: "Créez une ambiance propice à la relaxation.",
-    image: "/img/bougiedemeditation.webp",
-  },
-];
+import { ref, onMounted, computed } from "vue";
+
+// Référence pour stocker les collections
+const collections = ref([]);
+
+// Charger les données depuis le fichier JSON
+const loadCollections = async () => {
+  try {
+    const response = await import("/database/collections.json");
+    collections.value = response.collections;
+  } catch (error) {
+    console.error("Erreur lors du chargement des collections :", error);
+  }
+};
+
+// Regrouper les collections par blocs de 3
+const groupedCollections = computed(() => {
+  const groups = [];
+  for (let i = 0; i < collections.value.length; i += 3) {
+    groups.push(collections.value.slice(i, i + 3));
+  }
+  return groups;
+});
+
+// Charger les données lors du montage
+onMounted(loadCollections);
 </script>
 
 <style scoped>
-/* Styles inchangés */
+/* Section principale */
 .collections {
   padding: 2rem 1rem;
   background-color: var(--bg-color);
@@ -87,19 +66,34 @@ const collections = [
   margin-bottom: 1.5rem;
 }
 
+.collection-groups {
+  display: flex;
+  flex-direction: column;
+  gap:1rem;
+}
+
+.collection-block {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
 .collection-list {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 1.5rem;
-  justify-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem; /* Ajout d'espacement supplémentaire */
+  width: 100%; /* Assure que la liste prend toute la largeur disponible */
+  max-width: 1200px; /* Limite maximale pour une apparence large mais structurée */
+  margin: 0 auto; /* Centre la liste */
 }
 
 .collection-item {
   background-color: var(--color-indigo);
   border-radius: 15px;
   overflow: hidden;
-  width: 90%;
-  max-width: 300px;
+  width: 100%; /* Trois éléments par ligne avec espacement */
+  max-width: 375px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -156,10 +150,10 @@ const collections = [
   transform: scale(1.1);
 }
 
+/* Responsive : Tablettes */
 @media (min-width: 768px) {
   .collection-list {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 2rem;
+    max-width: 1400px; /* Rend la liste plus large sur tablettes */
   }
 }
 
@@ -168,18 +162,17 @@ const collections = [
     margin-top: 2rem;
     background-color: var(--color-bg-transp);
     border-radius: 20px 5px 20px 5px;
+    padding: 2rem 0;
   }
 
   .collection-list {
-    grid-template-columns: repeat(4, 1fr);
-    gap: 1rem;
+    justify-content: center;
+    gap: 1rem; /* Espacement plus grand entre les éléments */
   }
 
   .collection-item {
-    width: 100%;
-  }
-  .collection-content {
-    padding: 0 10px;
+    padding: 10px;
+    width: calc(45% - 3rem); /* Quatre éléments par ligne sur desktop */
   }
 }
 </style>
