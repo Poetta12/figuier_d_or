@@ -26,18 +26,21 @@
           <p class="product-price" v-if="product.price">
             Prix : {{ product.price.toFixed(2) }} CHF
           </p>
-          <strong>Parfums disponibles :</strong>
-          <ul class="product-meta" v-if="product.fragrances?.length">
-            <li v-for="(fragrance, index) in product.fragrances" :key="index">
-              {{ fragrance }}
-            </li>
-          </ul>
-          <p v-if="product.color">
-            <strong>Couleur :</strong> {{ product.color }}
-          </p>
-          <p v-if="product.quantity">
-            <strong>Quantité disponible :</strong> {{ product.quantity }}
-          </p>
+          <div v-if="product.fragrances?.length">
+
+            <strong>Parfums disponibles :</strong>
+            <ul class="product-meta">
+              <li v-for="(fragrance, index) in product.fragrances" :key="index">
+                {{ fragrance }}
+              </li>
+            </ul>
+            <p v-if="product.color">
+              <strong>Couleur :</strong> {{ product.color }}
+            </p>
+            <p v-if="product.quantity">
+              <strong>Quantité disponible :</strong> {{ product.quantity }}
+            </p>
+          </div>
         </div>
       </div>
     </div>
