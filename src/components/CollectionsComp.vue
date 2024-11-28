@@ -8,18 +8,29 @@
             <div
               class="collection-image"
               :style="{ backgroundImage: `url(${collection.image})` }"
-            ></div>
+            >
+              <div v-if="!collection.available" class="ribbon">
+                Bientôt disponible
+              </div>
+            </div>
             <div class="collection-content">
               <h3 class="collection-title">{{ collection.name }}</h3>
               <p class="collection-description">{{ collection.description }}</p>
             </div>
-            <button class="explore-button hoverable">Explorer la boutique</button>
+            <button
+              class="explore-button hoverable"
+              :class="{ 'disabled-button': !collection.available }"
+              :disabled="!collection.available"
+            >
+              {{ collection.available ? "Explorer la boutique" : "Merci de votre patience" }}
+            </button>
           </div>
         </div>
       </div>
     </div>
   </section>
 </template>
+
 
 <script setup>
 import { ref, onMounted, computed } from "vue";
@@ -69,7 +80,7 @@ onMounted(loadCollections);
 .collection-groups {
   display: flex;
   flex-direction: column;
-  gap:1rem;
+  gap: 1rem;
 }
 
 .collection-block {
@@ -82,17 +93,17 @@ onMounted(loadCollections);
 .collection-list {
   display: flex;
   flex-wrap: wrap;
-  gap: 2rem; /* Ajout d'espacement supplémentaire */
-  width: 100%; /* Assure que la liste prend toute la largeur disponible */
-  max-width: 1200px; /* Limite maximale pour une apparence large mais structurée */
-  margin: 0 auto; /* Centre la liste */
+  gap: 2rem;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
 }
 
 .collection-item {
   background-color: var(--color-indigo);
   border-radius: 15px;
   overflow: hidden;
-  width: 100%; /* Trois éléments par ligne avec espacement */
+  width: 100%;
   max-width: 375px;
   display: flex;
   flex-direction: column;
@@ -100,11 +111,29 @@ onMounted(loadCollections);
   text-align: center;
   box-shadow: 0 4px 6px var(--color-darkgold);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
+  position: relative;
 }
 
 .collection-item:hover {
   transform: translateY(-5px);
   box-shadow: 0 6px 10px var(--color-lightgold);
+}
+
+/* Écharpe "Bientôt disponible" */
+.ribbon {
+  position: absolute;
+  top: 85px;
+  left: -158px;
+  background-color: rgba(255, 69, 0, 0.9); /* Rouge avec transparence */
+  color: white;
+  font-size: 2rem;
+  font-weight: bold;
+  padding: 5px 10px;
+  transform: rotate(-45deg);
+  width: 150%;
+  text-align: center;
+  z-index: 10;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
 .collection-image {
@@ -113,6 +142,7 @@ onMounted(loadCollections);
   background-size: cover;
   background-position: center;
   border-radius: 15px 15px 0 0;
+  position: relative;
 }
 
 .collection-content {
@@ -134,6 +164,7 @@ onMounted(loadCollections);
   margin-bottom: 1rem;
 }
 
+/* Bouton */
 .explore-button {
   background-color: var(--color-lightgold);
   color: var(--color-bordeaux);
@@ -150,10 +181,23 @@ onMounted(loadCollections);
   transform: scale(1.1);
 }
 
+/* Bouton désactivé */
+.disabled-button {
+  background-color: #d3d3d3; /* Gris clair */
+  color: var(--color-bordeaux); /* Gris foncé */
+  cursor: not-allowed;
+}
+
+.disabled-button:hover {
+  background-color: #d3d3d3;
+  color: #a9a9a9;
+  transform: none;
+}
+
 /* Responsive : Tablettes */
 @media (min-width: 768px) {
   .collection-list {
-    max-width: 1400px; /* Rend la liste plus large sur tablettes */
+    max-width: 1400px;
   }
 }
 
@@ -167,12 +211,12 @@ onMounted(loadCollections);
 
   .collection-list {
     justify-content: center;
-    gap: 1rem; /* Espacement plus grand entre les éléments */
+    gap: 1rem;
   }
 
   .collection-item {
     padding: 10px;
-    width: calc(45% - 3rem); /* Quatre éléments par ligne sur desktop */
+    width: calc(45% - 3rem);
   }
 }
 </style>

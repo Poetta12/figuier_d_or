@@ -4,37 +4,43 @@
       "id": 1,
       "name": "Bougie Moulée",
       "description": "Des bougies élégamment moulées, parfaites pour décorer et illuminer votre intérieur.",
-      "image": "/img/bougie_moulee.webp"
+      "image": "/img/bougie_moulee.webp",
+      "available": true
     },
     {
       "id": 2,
       "name": "Bougie Parfumée",
       "description": "Bougies parfumées offrant des senteurs envoûtantes pour toutes les occasions.",
-      "image": "/img/bougie_parfumee.png"
+      "image": "/img/bougie_parfumee.png",
+      "available": true
     },
     {
       "id": 3,
       "name": "Bougie Gourmande",
       "description": "Des bougies inspirées de gourmandises qui éveillent les sens avec des parfums sucrés.",
-      "image": "/img/bougie_gourmande.jpg"
+      "image": "/img/bougie_gourmande.jpg",
+      "available": false
     },
     {
       "id": 4,
       "name": "Bougie Massage",
       "description": "Des bougies spécialement conçues pour des massages relaxants avec des huiles naturelles.",
-      "image": "/img/bougie_massage.jpeg"
+      "image": "/img/bougie_massage.jpeg",
+      "available": false
     },
     {
       "id": 5,
       "name": "Fondant",
       "description": "Des fondants parfumés à faire fondre pour une diffusion optimale des senteurs.",
-      "image": "/img/bougie-fondant.webp"
+      "image": "/img/bougie-fondant.webp",
+      "available": false
     },
     {
       "id": 6,
       "name": "Bougie de Méditation",
       "description": "Bougies conçues pour accompagner vos moments de méditation avec des parfums apaisants.",
-      "image": "/img/bougie_meditation.webp"
+      "image": "/img/bougie_meditation.webp",
+      "available": false
     }
   ]
 }

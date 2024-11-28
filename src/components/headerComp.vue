@@ -84,7 +84,7 @@ const updateTheme = (newTheme) => {
   justify-content: space-between;
   position: sticky;
   top: 0;
-  z-index: 10;
+  z-index: 100000;
   border-bottom: 2px solid var(--color-lightgold);
   box-shadow: 0 4px 6px var(--color-darkgold);
 }
