@@ -21,9 +21,11 @@
               class="explore-button hoverable"
               :class="{ 'disabled-button': !collection.available }"
               :disabled="!collection.available"
+              @click="() => { console.log('Bouton cliqué'); navigateToCatalogue(collection.name); }"
             >
               {{ collection.available ? "Explorer la boutique" : "Merci de votre patience" }}
             </button>
+
           </div>
         </div>
       </div>
@@ -34,9 +36,18 @@
 
 <script setup>
 import { ref, onMounted, computed } from "vue";
+import { useRouter } from "vue-router";
+
+const router = useRouter();
 
 // Référence pour stocker les collections
 const collections = ref([]);
+
+const navigateToCatalogue = (category) => {
+  console.log("Navigation vers Catalogue avec catégorie :", category); // Ajout pour le débogage
+  if (!category) return;
+  router.push({ name: "catalogue", query: { category } });
+};
 
 // Charger les données depuis le fichier JSON
 const loadCollections = async () => {

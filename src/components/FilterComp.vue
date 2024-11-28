@@ -48,9 +48,12 @@
 </template>
 
 <script setup>
-import { ref, computed, onMounted } from "vue";
+import { ref, computed, onMounted, watch } from "vue";
 
 const emit = defineEmits(["filter-change"]);
+const props = defineProps({
+  selectedCategory: { type: String, default: "" },
+});
 
 const filters = ref({
   search: "",
@@ -80,12 +83,22 @@ const loadProducts = async () => {
   }
 };
 
+// Synchroniser la catégorie depuis la prop
+watch(
+  () => props.selectedCategory,
+  (newCategory) => {
+    filters.value.category = newCategory;
+  },
+  { immediate: true }
+);
+
 const emitFilters = () => {
   emit("filter-change", { ...filters.value });
 };
 
 onMounted(loadProducts);
 </script>
+
 
 <style scoped>
 h4{

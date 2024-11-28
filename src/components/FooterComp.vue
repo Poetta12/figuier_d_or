@@ -15,8 +15,8 @@
           <ul class="footer-links">
             <li><router-link to="/" class="nav-link" exact-active-class="active">Accueil</router-link></li>
             <li><router-link to="/catalogue" class="nav-link" exact-active-class="active">Catalogue</router-link></li>
-            <li><router-link to="/about" class="nav-link" exact-active-class="active">À propos</router-link></li>
             <li><router-link to="/form" class="nav-link" exact-active-class="active">Formulaire</router-link></li>
+            <li><router-link to="/about" class="nav-link" exact-active-class="active">À propos</router-link></li>
           </ul>
         </div>
 
@@ -37,15 +37,15 @@
           <ul class="footer-links">
             <li>
               <i class="fas fa-phone"></i>
-              <a href="tel:+33123456789" class="contact-link">+33 1 23 45 67 89</a>
+              <a href="tel:+41 79 624 77 53" class="contact-link">+41 79 624 77 53</a>
             </li>
             <li>
               <i class="fas fa-envelope"></i>
-              <a href="mailto:contact@figuierdor.com" class="contact-link">contact@figuierdor.com</a>
+              <a href="mailto:contact@figuierdor.ch" class="contact-link">contact@figuierdor.com</a>
             </li>
             <li>
               <i class="fas fa-map-marker-alt"></i>
-              <a>123, Rue des Bougies, Paris, France</a>
+              <a>Genève, Suisse</a>
             </li>
           </ul>
         </div>
@@ -54,10 +54,7 @@
         <div class="footer-section">
           <h3 class="footer-title">Suivez-nous</h3>
           <ul class="footer-links social-icons">
-            <li><a href="https://facebook.com" target="_blank" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a></li>
-            <li><a href="https://instagram.com" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a></li>
-            <li><a href="https://pinterest.com" target="_blank" aria-label="Pinterest"><i class="fab fa-pinterest-p"></i></a></li>
-            <li><a href="https://tiktok.com" target="_blank" aria-label="TikTok"><i class="fab fa-tiktok"></i></a></li>
+            <li><a href="https://www.instagram.com/figuierdor/" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a></li>
           </ul>
         </div>
       </div>

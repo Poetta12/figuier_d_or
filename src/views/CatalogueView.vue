@@ -3,8 +3,7 @@
     <h1 class="catalogue-title">Catalogue des Bougies Artisanales</h1>
 
     <!-- Composant de filtre -->
-    <FilterComp @filter-change="updateFilters" />
-
+    <FilterComp @filter-change="updateFilters" :selectedCategory="activeFilters.category" />
 
     <!-- Grille des produits -->
     <div class="products-grid">
@@ -23,7 +22,6 @@
       />
     </div>
 
-
     <!-- Pagination -->
     <PaginationComp
       :currentPage="currentPage"
@@ -39,17 +37,17 @@
       @close="closeModal"
       @addToCart="addToCart"
     />
-
   </div>
 </template>
 
 <script setup>
+import { ref, computed, onMounted } from "vue";
+import { useRoute } from "vue-router";
 import ProductFrame from "@/components/ProductFrame.vue";
 import ProductDetails from "@/components/ProductDetails.vue";
 import PaginationComp from "@/components/PaginationComp.vue";
 import FilterComp from "@/components/FilterComp.vue";
 import productsData from "../../database/bougies.json";
-import { ref, computed } from "vue";
 
 // Liste des produits
 const products = ref(productsData);
@@ -62,13 +60,21 @@ const isModalVisible = ref(false);
 const currentPage = ref(1);
 const itemsPerPage = 9; // Nombre d'éléments par page
 
-
 // Filtres actifs
 const activeFilters = ref({
   search: "",
   category: "",
   color: "",
   priceRange: 50,
+});
+
+// Synchronisation avec la route
+const route = useRoute();
+onMounted(() => {
+  const initialCategory = route.query.category;
+  if (initialCategory) {
+    activeFilters.value.category = initialCategory; // Synchronise avec la catégorie sélectionnée
+  }
 });
 
 // Produits filtrés
@@ -83,13 +89,11 @@ const filteredProducts = computed(() => {
     const matchesColor =
       activeFilters.value.color === "" ||
       product.color === activeFilters.value.color;
-    const matchesPrice =
-      product.price <= activeFilters.value.priceRange;
+    const matchesPrice = product.price <= activeFilters.value.priceRange;
 
     return matchesSearch && matchesCategory && matchesColor && matchesPrice;
   });
 });
-
 
 // Pagination calculée
 const totalPages = computed(() => Math.ceil(filteredProducts.value.length / itemsPerPage));
@@ -101,7 +105,7 @@ const paginatedProducts = computed(() => {
 // Mise à jour des filtres
 const updateFilters = (filters) => {
   activeFilters.value = { ...filters };
-  currentPage.value = 1; // Réinitialiser à la première page lors de l'application de nouveaux filtres
+  currentPage.value = 1; // Réinitialiser à la première page
 };
 
 // Actions pour la pagination
@@ -113,12 +117,8 @@ const goToPage = (page) => {
 
 // Exemple pour vérifier un produit avant d'ouvrir la modale
 const showDetails = (product) => {
-  if (product && typeof product === "object" && product.name) {
-    selectedProduct.value = product;
-    isModalVisible.value = true;
-  } else {
-    console.error("Produit invalide :", product);
-  }
+  selectedProduct.value = product;
+  isModalVisible.value = true;
 };
 
 // Fermeture de la modale
@@ -134,12 +134,7 @@ const addToCart = (product) => {
 };
 </script>
 
-
-
-
 <style scoped>
-/* Base styles for mobile-first design */
-
 .catalogue-page {
   max-width: 1200px;
   margin: auto;

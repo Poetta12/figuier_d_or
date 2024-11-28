@@ -1,7 +1,7 @@
 [
     {
         "name": "Bougie parfumée 400g",
-        "category": "Bougie parfumée",
+        "category": "Bougies Parfumées",
         "price": 42.5,
         "fragrances": [
             "Booster your life (fruité)",
@@ -22,7 +22,7 @@
     },
     {
         "name": "Bougie parfumée 250g",
-        "category": "Bougie parfumée",
+        "category": "Bougies Parfumées",
         "price": 25,
         "fragrances": [
             "Booster your life (fruité)",
@@ -42,7 +42,7 @@
     },
     {
         "name": "Bougie parfumée 150g",
-        "category": "Bougie parfumée",
+        "category": "Bougies Parfumées",
         "price": 16.5,
         "fragrances": [
             "Booster your life (fruité)",
@@ -61,8 +61,8 @@
         "description": "Cette bougie de 16.5g est parfaite pour fraganceser votre intérieur avec des fragrances envoûtantes. Fabriquée avec soin, elle est idéale pour créer une ambiance chaleureuse et relaxante."
     },
     {
-        "name": "Bougie parfumée 50g",
-        "category": "Bougie parfumée",
+        "name": "Bougie Parfumée 50g",
+        "category": "Bougies Parfumées",
         "price": 13.5,
         "fragrances": [
             "Booster your life (fruité)",
@@ -82,7 +82,7 @@
     },
     {
         "name": "Ours",
-        "category": "Bougie moulée",
+        "category": "Bougies Moulées",
         "price": 8.5,
         "fragrances": [],
         "color": "Blanc de base",
@@ -94,7 +94,7 @@
     },
     {
         "name": "Corps de femme avec T-shirt",
-        "category": "Bougie moulée",
+        "category": "Bougies Moulées",
         "price": 10,
         "fragrances": [],
         "color": "Blanc de base",
@@ -106,7 +106,7 @@
     },
     {
         "name": "Torse d'homme",
-        "category": "Bougie moulée",
+        "category": "Bougies Moulées",
         "price": 12,
         "fragrances": [],
         "color": "Blanc de base",
@@ -118,7 +118,7 @@
     },
     {
         "name": "Torse de femme",
-        "category": "Bougie moulée",
+        "category": "Bougies Moulées",
         "price": 12,
         "fragrances": [],
         "color": "Blanc de base",
@@ -130,7 +130,7 @@
     },
     {
         "name": "Serpent à tête de Rose",
-        "category": "Bougie moulée",
+        "category": "Bougies Moulées",
         "price": 16.5,
         "fragrances": [],
         "color": "Blanc de base",
@@ -139,7 +139,7 @@
     },
     {
         "name": "Coeur dans les mains",
-        "category": "Bougie moulée",
+        "category": "Bougies Moulées",
         "price": 12,
         "fragrances": [],
         "color": "Blanc de base",
@@ -151,7 +151,7 @@
     },
     {
         "name": "Cylindre ondulé",
-        "category": "Bougie moulée",
+        "category": "Bougies Moulées",
         "price": 10.5,
         "fragrances": [],
         "color": "Blanc de base",
@@ -163,7 +163,7 @@
     },
     {
         "name": "Cylindre patte de chien",
-        "category": "Bougie moulée",
+        "category": "Bougies Moulées",
         "price": 10,
         "fragrances": [],
         "color": "Blanc de base",
@@ -175,7 +175,7 @@
     },
     {
         "name": "Cylindre coeur",
-        "category": "Bougie moulée",
+        "category": "Bougies Moulées",
         "price": 10,
         "fragrances": [],
         "color": "Blanc de base",
@@ -187,7 +187,7 @@
     },
     {
         "name": "Cylindre octogonal",
-        "category": "Bougie moulée",
+        "category": "Bougies Moulées",
         "price": 11,
         "fragrances": [],
         "color": "Blanc de base",
@@ -199,7 +199,7 @@
     },
     {
         "name": "Cylindre avec des vagues",
-        "category": "Bougie moulée",
+        "category": "Bougies Moulées",
         "price": 18.5,
         "fragrances": [],
         "color": "Blanc de base",
@@ -211,7 +211,7 @@
     },
     {
         "name": "Bougie à bulle",
-        "category": "Bougie moulée",
+        "category": "Bougies Moulées",
         "price": 18.5,
         "fragrances": [],
         "color": "Blanc de base",
@@ -220,7 +220,7 @@
     },
     {
         "name": "Cube de diamant",
-        "category": "Bougie moulée",
+        "category": "Bougies Moulées",
         "price": 10,
         "fragrances": [],
         "color": "Blanc de base",
@@ -229,7 +229,7 @@
     },
     {
         "name": "Pomme de pain",
-        "category": "Bougie moulée",
+        "category": "Bougies Moulées",
         "price": 11,
         "fragrances": [],
         "color": "Blanc de base",
@@ -238,7 +238,7 @@
     },
     {
         "name": "Botte de Noel",
-        "category": "Bougie moulée",
+        "category": "Bougies Moulées",
         "price": 13.5,
         "fragrances": [],
         "color": "Blanc de base",
@@ -247,7 +247,7 @@
     },
     {
         "name": "Cloche de Noel",
-        "category": "Bougie moulée",
+        "category": "Bougies Moulées",
         "price": 13.5,
         "fragrances": [],
         "color": "Blanc de base",
@@ -256,7 +256,7 @@
     },
     {
         "name": "Bonhomme de neige",
-        "category": "Bougie moulée",
+        "category": "Bougies Moulées",
         "price": 8,
         "fragrances": [],
         "color": "Blanc de base",
@@ -265,7 +265,7 @@
     },
     {
         "name": "Gnôme Couronne",
-        "category": "Bougie moulée",
+        "category": "Bougies Moulées",
         "price": 8,
         "fragrances": [],
         "color": "Blanc de base",
@@ -274,7 +274,7 @@
     },
     {
         "name": "Cerf en forêt",
-        "category": "Bougie moulée",
+        "category": "Bougies Moulées",
         "price": 15.5,
         "fragrances": [],
         "color": "Blanc de base",
@@ -283,7 +283,7 @@
     },
     {
         "name": "Gnôme trèfle",
-        "category": "Bougie moulée",
+        "category": "Bougies Moulées",
         "price": 9,
         "fragrances": [],
         "color": "Blanc de base",
@@ -292,7 +292,7 @@
     },
     {
         "name": "ours tête à lenvers",
-        "category": "Bougie moulée",
+        "category": "Bougies Moulées",
         "price": 9,
         "fragrances": [],
         "color": "Blanc de base",
@@ -301,7 +301,7 @@
     },
     {
         "name": "Couple marié",
-        "category": "Bougie moulée",
+        "category": "Bougies Moulées",
         "price": 9,
         "fragrances": [],
         "color": "Blanc de base",
@@ -310,7 +310,7 @@
     },
     {
         "name": "Centre de table trio de roses",
-        "category": "Bougie moulée",
+        "category": "Bougies Moulées",
         "price": 21,
         "fragrances": [],
         "color": "Blanc de base",
@@ -319,7 +319,7 @@
     },
     {
         "name": "Lotus",
-        "category": "Bougie moulée",
+        "category": "Bougies Moulées",
         "price": 11,
         "fragrances": [],
         "color": "Blanc de base",
@@ -328,7 +328,7 @@
     },
     {
         "name": "Grande Rose en coeur",
-        "category": "Bougie moulée",
+        "category": "Bougies Moulées",
         "price": 9,
         "fragrances": [],
         "color": "Blanc de base",
@@ -340,7 +340,7 @@
     },
     {
         "name": "Main & rose",
-        "category": "Bougie moulée",
+        "category": "Bougies Moulées",
         "price": 11,
         "fragrances": [],
         "color": "Blanc de base",
@@ -349,7 +349,7 @@
     },
     {
         "name": "Femme secret",
-        "category": "Bougie moulée",
+        "category": "Bougies Moulées",
         "price": 10,
         "fragrances": [],
         "color": "Blanc de base",
@@ -358,7 +358,7 @@
     },
     {
         "name": "Anges",
-        "category": "Bougie moulée",
+        "category": "Bougies Moulées",
         "price": 14,
         "fragrances": [],
         "color": "Blanc de base",
@@ -367,7 +367,7 @@
     },
     {
         "name": "Trio père Noël",
-        "category": "Bougie moulée",
+        "category": "Bougies Moulées",
         "price": 8.5,
         "fragrances": [],
         "color": "Blanc de base",
@@ -376,7 +376,7 @@
     },
     {
         "name": "gnôme sapin",
-        "category": "Bougie moulée",
+        "category": "Bougies Moulées",
         "price": 8.5,
         "fragrances": [],
         "color": "Blanc de base",
@@ -385,7 +385,7 @@
     },
     {
         "name": "Gnôme chapeau trèfle",
-        "category": "Bougie moulée",
+        "category": "Bougies Moulées",
         "price": 8.5,
         "fragrances": [],
         "color": "Blanc de base",
@@ -394,7 +394,7 @@
     },
     {
         "name": "Grand sapin",
-        "category": "Bougie moulée",
+        "category": "Bougies Moulées",
         "price": 13.5,
         "fragrances": [],
         "color": "Blanc de base",
@@ -403,7 +403,7 @@
     },
     {
         "name": "petit sapin",
-        "category": "Bougie moulée",
+        "category": "Bougies Moulées",
         "price": 10,
         "fragrances": [],
         "color": "Blanc de base",
@@ -412,7 +412,7 @@
     },
     {
         "name": "Cerf",
-        "category": "Bougie moulée",
+        "category": "Bougies Moulées",
         "price": 8,
         "fragrances": [],
         "color": "Blanc de base",
@@ -421,7 +421,7 @@
     },
     {
         "name": "Chien Bichon",
-        "category": "Bougie moulée",
+        "category": "Bougies Moulées",
         "price": 9.5,
         "fragrances": [],
         "color": "Blanc de base",
